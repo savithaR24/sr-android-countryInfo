@@ -12,4 +12,5 @@ data class Country(
 ) {
     val commonName = name.common
     val flagUrl = flags.png
+    val nonNullCapital = capital?.firstOrNull() ?: "N/A"
 }

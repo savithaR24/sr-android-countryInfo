@@ -11,14 +11,11 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-private const val BASE_URL = "https://restcountries.com/v3.1"
+private const val BASE_URL = "https://restcountries.com/v3.1/"
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // TODO build out the retrofit service and reference it here.
-        //  Pass the service in to the CountryInfoScreen composable below.
 
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
@@ -33,8 +30,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MyApplicationTheme {
-                // TODO complete the composable content and provide
-                //  models for Country, CountryName, and CountryFlags.
                 CountryInfoScreen(apiService)
             }
         }

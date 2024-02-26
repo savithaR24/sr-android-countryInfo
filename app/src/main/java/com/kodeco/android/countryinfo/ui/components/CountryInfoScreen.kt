@@ -1,16 +1,81 @@
 package com.kodeco.android.countryinfo.ui.components
 
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.kodeco.android.countryinfo.api.CountryAPIService
+import com.kodeco.android.countryinfo.models.Country
+import com.kodeco.android.countryinfo.models.CountryFlags
+import com.kodeco.android.countryinfo.models.CountryName
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
-// TODO fill out CountryInfoScreen
+sealed class CountryInfoState {
+    object Loading : CountryInfoState()
+    data class Success(val countries: List<Country>) : CountryInfoState()
+    data class Error(val error: Throwable) : CountryInfoState()
+}
+
 @Composable
 fun CountryInfoScreen(service: CountryAPIService) {
 
+    var infoState: CountryInfoState by remember { mutableStateOf(CountryInfoState.Loading) }
+    Surface {
+        when (val currentState = infoState) {
+            is CountryInfoState.Loading -> Loading()
+            is CountryInfoState.Success -> CountryInfoList(currentState.countries)
+            is CountryInfoState.Error -> CountryErrorScreen(currentState.error)
+        }
+    }
+
+    if (infoState == CountryInfoState.Loading) {
+        LaunchedEffect(key1 = "fetch-country") {
+            launch {
+                delay(1000)
+                infoState = try {
+                    val countriesResponse = service.getAllCountries()
+
+                    if (countriesResponse.isSuccessful) {
+                        CountryInfoState.Success(countriesResponse.body()!!)
+                    } else {
+                        CountryInfoState.Error(Throwable("Request Failed - ${countriesResponse.message()}"))
+                    }
+                } catch (exception: Exception) {
+                    CountryInfoState.Error(exception)
+                }
+            }
+        }
+    }
 }
 
-// TODO fill out the preview.
+val sampleListCountries = listOf(
+    Country(
+        name = CountryName(common = "United States"),
+        capital = listOf("D.C"),
+        population = 336102425,
+        area = 9833520.0,
+        flags = CountryFlags(png = ""),
+    ),
+    Country(
+        name = CountryName(common = "United States"),
+        capital = listOf("D.C"),
+        population = 336102425,
+        area = 9833520.0,
+        flags = CountryFlags(png = ""),
+    ),
+)
+
 @Preview
 @Composable
-fun CountryInfoScreenPreview() { }
+fun CountryInfoScreenPreview() {
+    CountryInfoScreen(object : CountryAPIService {
+        override suspend fun getAllCountries(): Response<List<Country>> =
+            Response.success(sampleListCountries)
+    })
+}

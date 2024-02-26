@@ -1,4 +1,4 @@
-package com.kodeco.countryinfo
+package com.kodeco.android.countryinfo
 
 import org.junit.Test
 

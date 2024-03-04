@@ -62,14 +62,14 @@ val sampleListCountries = listOf(
         capital = listOf("D.C"),
         population = 336102425,
         area = 9833520.0,
-        flags = CountryFlags(png = ""),
+        flags = CountryFlags(png = "https://flagcdn.com/w320/us.png"),
     ),
     Country(
         name = CountryName(common = "United States"),
         capital = listOf("D.C"),
         population = 336102425,
         area = 9833520.0,
-        flags = CountryFlags(png = ""),
+        flags = CountryFlags(png = "https://flagcdn.com/w320/us.png"),
     ),
 )
 

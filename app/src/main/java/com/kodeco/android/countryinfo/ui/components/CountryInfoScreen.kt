@@ -30,12 +30,14 @@ fun CountryInfoScreen(service: CountryAPIService) {
         when (val currentState = infoState) {
             is CountryInfoState.Loading -> Loading()
             is CountryInfoState.Success -> CountryInfoList(currentState.countries)
-            is CountryInfoState.Error -> CountryErrorScreen(currentState.error)
+            is CountryInfoState.Error -> CountryErrorScreen(currentState.error, onTryAgain = {
+                infoState = CountryInfoState.Loading
+            })
         }
     }
 
     if (infoState == CountryInfoState.Loading) {
-        LaunchedEffect(key1 = "fetch-country") {
+        LaunchedEffect(Unit) {
             launch {
                 delay(1000)
                 infoState = try {

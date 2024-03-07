@@ -41,13 +41,7 @@ fun CountryInfoScreen(service: CountryAPIService) {
             launch {
                 delay(1000)
                 infoState = try {
-                    val countriesResponse = service.getAllCountries()
-
-                    if (countriesResponse.isSuccessful) {
-                        CountryInfoState.Success(countriesResponse.body()!!)
-                    } else {
-                        CountryInfoState.Error(Throwable("Request Failed - ${countriesResponse.message()}"))
-                    }
+                    CountryInfoState.Success(service.getAllCountries())
                 } catch (exception: Exception) {
                     CountryInfoState.Error(exception)
                 }
@@ -77,7 +71,7 @@ val sampleListCountries = listOf(
 @Composable
 fun CountryInfoScreenPreview() {
     CountryInfoScreen(object : CountryAPIService {
-        override suspend fun getAllCountries(): Response<List<Country>> =
-            Response.success(sampleListCountries)
+        override suspend fun getAllCountries(): List<Country> =
+            sampleListCountries
     })
 }

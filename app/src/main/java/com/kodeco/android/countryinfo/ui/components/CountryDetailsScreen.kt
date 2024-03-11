@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.kodeco.android.countryinfo.flow.Flows
 import com.kodeco.android.countryinfo.models.Country
 
 @Composable
@@ -32,7 +33,10 @@ fun CountryDetailsScreen(country: Country, onBackPress: () -> Unit) {
                     Text(country.commonName)
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBackPress) {
+                    IconButton(onClick = {
+                        Flows.tapBack()
+                        onBackPress()
+                    }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back"

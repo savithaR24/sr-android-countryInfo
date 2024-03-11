@@ -10,10 +10,12 @@ object Flows {
     private val _tapFlow: MutableStateFlow<Int> = MutableStateFlow(0)
     private val _backFlow: MutableStateFlow<Int> = MutableStateFlow(0)
     private val _counterFlow: MutableStateFlow<Int> = MutableStateFlow(0)
+    private val _refreshFlow: MutableStateFlow<Int> = MutableStateFlow(0)
 
     val tapFlow: StateFlow<Int> = _tapFlow
     val backFlow: StateFlow<Int> = _backFlow
     val counterFlow: StateFlow<Int> = _counterFlow
+    val refreshFlow: StateFlow<Int> = _refreshFlow
 
     fun tap() {
         _tapFlow.value += 1
@@ -34,5 +36,9 @@ object Flows {
 
     private fun increment() {
         _counterFlow.value += 1
+    }
+
+    fun refresh() {
+        _refreshFlow.value += 1
     }
 }

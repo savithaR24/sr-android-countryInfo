@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.kodeco.android.countryinfo.api.CountryAPIService
+import com.kodeco.android.countryinfo.flow.Flows
 import com.kodeco.android.countryinfo.models.Country
 import com.kodeco.android.countryinfo.models.CountryFlags
 import com.kodeco.android.countryinfo.models.CountryName
@@ -35,11 +36,14 @@ fun CountryInfoScreen(service: CountryAPIService) {
                 currentState.countries,
                 onRefreshPress = {
                     infoState = CountryInfoState.Loading
+                    Flows.refresh()
                 })
 
-            is CountryInfoState.Error -> CountryErrorScreen(currentState.error, onTryAgain = {
-                infoState = CountryInfoState.Loading
-            })
+            is CountryInfoState.Error -> CountryErrorScreen(
+                currentState.error,
+                onTryAgain = {
+                    infoState = CountryInfoState.Loading
+                })
         }
     }
 

@@ -1,6 +1,5 @@
 package com.kodeco.android.countryinfo.ui.components
 
-import android.os.Parcelable
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,17 +8,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.versionedparcelable.VersionedParcelize
 import com.kodeco.android.countryinfo.api.CountryAPIService
 import com.kodeco.android.countryinfo.models.Country
 import com.kodeco.android.countryinfo.models.CountryFlags
 import com.kodeco.android.countryinfo.models.CountryName
-import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 import retrofit2.Response
 
 sealed class CountryInfoState {
@@ -35,9 +31,12 @@ fun CountryInfoScreen(service: CountryAPIService) {
     Surface {
         when (val currentState = infoState) {
             is CountryInfoState.Loading -> Loading()
-            is CountryInfoState.Success -> CountryInfoList(currentState.countries, onRefreshPress = {
-                infoState = CountryInfoState.Loading
-            })
+            is CountryInfoState.Success -> CountryInfoList(
+                currentState.countries,
+                onRefreshPress = {
+                    infoState = CountryInfoState.Loading
+                })
+
             is CountryInfoState.Error -> CountryErrorScreen(currentState.error, onTryAgain = {
                 infoState = CountryInfoState.Loading
             })

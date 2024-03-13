@@ -61,7 +61,7 @@ fun CountryInfoScreen(service: CountryAPIService) {
 }
 
 private fun getCountryInfoFlow(service: CountryAPIService): Flow<CountryInfoState> = flow {
-    delay(1500)
+    delay(3000)
     val countriesResponse = service.getAllCountries()
 
     val newState = if (countriesResponse.isSuccessful) {

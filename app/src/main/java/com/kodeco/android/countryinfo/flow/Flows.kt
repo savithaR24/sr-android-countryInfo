@@ -4,6 +4,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 object Flows {
@@ -41,4 +42,9 @@ object Flows {
     fun refresh() {
         _refreshFlow.value += 1
     }
+
+    val combinedFlow = combine(tapFlow, backFlow, refreshFlow) { taps, back, ref ->
+        taps + back + ref
+    }
+
 }

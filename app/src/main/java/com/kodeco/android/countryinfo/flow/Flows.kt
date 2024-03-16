@@ -1,5 +1,6 @@
 package com.kodeco.android.countryinfo.flow
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -7,6 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
+@DelicateCoroutinesApi
 object Flows {
     private val _tapFlow: MutableStateFlow<Int> = MutableStateFlow(0)
     private val _backFlow: MutableStateFlow<Int> = MutableStateFlow(0)

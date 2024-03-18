@@ -3,8 +3,6 @@ package com.kodeco.android.countryinfo.ui.screens.countryInfo
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.kodeco.android.countryinfo.models.Country
 import com.kodeco.android.countryinfo.models.CountryFlags
@@ -37,6 +35,7 @@ fun CountryInfoScreen(viewModel: CountryInfoViewModel) {
                 refreshCounter = refreshCounter.value,
                 combinedCounterValue = tapCounter.value + backCounter.value + refreshCounter.value
             )
+
             is CountryInfoState.Success -> CountryInfoList(
                 currentState.countries,
                 onRefreshPress = {

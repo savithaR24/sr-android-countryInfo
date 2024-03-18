@@ -30,13 +30,15 @@ fun CountryErrorScreen(error: Throwable, onTryAgain: () -> Unit) {
         if (customError != null && customError.contains("Unable to resolve host")) {
             customError = "No Network Connection. Please Check Connection and Try Again!"
         }
-        Text(text = "Error: $customError",
+        Text(
+            text = "Error: $customError",
             fontSize = 20.sp,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.error
         )
-        Spacer(modifier = Modifier
-            .height(10.dp)
+        Spacer(
+            modifier = Modifier
+                .height(10.dp)
         )
         Button(onClick = onTryAgain) {
             Text(text = "Try Again")

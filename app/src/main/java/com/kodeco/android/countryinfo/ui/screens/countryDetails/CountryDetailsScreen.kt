@@ -24,7 +24,9 @@ import coil.request.ImageRequest
 import com.kodeco.android.countryinfo.flow.Flows
 import com.kodeco.android.countryinfo.models.Country
 import com.kodeco.android.countryinfo.ui.components.sampleCountry
+import kotlinx.coroutines.DelicateCoroutinesApi
 
+@OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun CountryDetailsScreen(country: Country, onBackPress: () -> Unit) {
     Scaffold(

@@ -1,6 +1,5 @@
 package com.kodeco.android.countryinfo.ui.screens.countryInfo
 
-import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -21,6 +20,13 @@ class CountryInfoViewModel(private val repository: CountryRepository) : ViewMode
         fetchCountries()
     }
 
+    class CountryInfoViewModelFactory(private val repository: CountryRepository) :
+        ViewModelProvider.NewInstanceFactory() {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T =
+            CountryInfoViewModel(repository) as T
+    }
+
     fun fetchCountries() {
         viewModelScope.launch {
             _uiState.value = CountryInfoState.Loading
@@ -33,14 +39,6 @@ class CountryInfoViewModel(private val repository: CountryRepository) : ViewMode
                 }
         }
     }
-
-    class CountryInfoViewModelFactory(private val repository: CountryRepository) :
-        ViewModelProvider.NewInstanceFactory() {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T =
-            CountryInfoViewModel(repository) as T
-    }
-
 }
 
 

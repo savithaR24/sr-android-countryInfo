@@ -3,8 +3,9 @@ package com.kodeco.android.countryinfo.ui.screens.countryInfo
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import com.kodeco.android.countryinfo.flow.Flows
 import com.kodeco.android.countryinfo.models.Country
 import com.kodeco.android.countryinfo.models.CountryFlags
 import com.kodeco.android.countryinfo.models.CountryName
@@ -24,16 +25,33 @@ sealed class CountryInfoState {
 fun CountryInfoScreen(viewModel: CountryInfoViewModel) {
 
     var infoState = viewModel.uiState.collectAsState()
+    val tapCounter = viewModel.countryTapCounter.collectAsState()
+    val backCounter = viewModel.backTapCounter.collectAsState()
+    val appUptimeCounter = viewModel.appUptimeCounter.collectAsState()
+    val refreshCounter = viewModel.refreshCounter.collectAsState()
 
     Surface {
         when (val currentState = infoState.value) {
-            is CountryInfoState.Loading -> Loading()
+            is CountryInfoState.Loading -> Loading(
+                appUptimeCounter = appUptimeCounter.value,
+                refreshCounter = refreshCounter.value,
+                combinedCounterValue = tapCounter.value + backCounter.value + refreshCounter.value
+            )
             is CountryInfoState.Success -> CountryInfoList(
                 currentState.countries,
                 onRefreshPress = {
                     viewModel.fetchCountries()
-                    Flows.refresh()
-                })
+                    viewModel.refresh()
+                },
+                onCountryTap = {
+                    viewModel.tap()
+                },
+                onBackTap = {
+                    viewModel.tapBack()
+                },
+                tapCounter = tapCounter.value,
+                backCounter = backCounter.value,
+            )
 
             is CountryInfoState.Error -> CountryErrorScreen(
                 currentState.error,

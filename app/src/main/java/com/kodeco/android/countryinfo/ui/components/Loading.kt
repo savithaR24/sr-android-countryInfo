@@ -17,15 +17,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.kodeco.android.countryinfo.flow.Flows
+import com.kodeco.android.countryinfo.ui.screens.countryInfo.CountryInfoState
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @OptIn(DelicateCoroutinesApi::class)
 @Composable
-fun Loading() {
-    val appUptimeCounter = Flows.counterFlow.collectAsState()
-    val refreshCounter = Flows.refreshFlow.collectAsState()
-    val combinedFlowValue = remember { mutableIntStateOf(0) }
+fun Loading(
+    appUptimeCounter: Int,
+    refreshCounter: Int,
+    combinedCounterValue: Int,
+) {
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -37,16 +38,10 @@ fun Loading() {
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Loading .. App Uptime: ${appUptimeCounter.value}", Modifier.padding(10.dp))
-            Text(text = "App Refreshed Count: ${refreshCounter.value}", Modifier.padding(10.dp))
-            Text(text = "Total UI Interactions: ${combinedFlowValue.value}", Modifier.padding(10.dp))
+            Text(text = "Loading .. App Uptime: $appUptimeCounter", Modifier.padding(10.dp))
+            Text(text = "App Refreshed Count: $refreshCounter", Modifier.padding(10.dp))
+            Text(text = "Total UI Interactions: $combinedCounterValue", Modifier.padding(10.dp))
             CircularProgressIndicator()
-        }
-    }
-
-    LaunchedEffect(Unit) {
-        Flows.combinedFlow.collect {
-            combinedFlowValue.value = it
         }
     }
 }
@@ -54,5 +49,5 @@ fun Loading() {
 @Preview
 @Composable
 fun LoadingPreview() {
-    Loading()
+//    Loading()
 }

@@ -16,23 +16,27 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kodeco.android.countryinfo.flow.Flows
 import com.kodeco.android.countryinfo.ui.screens.countryDetails.CountryDetailsScreen
 import com.kodeco.android.countryinfo.ui.screens.countryInfo.sampleListCountries
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CountryInfoList(countries: List<Country>, onRefreshPress: () -> Unit) {
+fun CountryInfoList(
+    countries: List<Country>,
+    onRefreshPress: () -> Unit,
+    onCountryTap: () -> Unit,
+    onBackTap: () -> Unit,
+    tapCounter: Int,
+    backCounter: Int,
+) {
     var selectedCountry: Country? by remember { mutableStateOf(null) }
-
-    val tapCounter = Flows.tapFlow.collectAsState()
-    val backCounter = Flows.backFlow.collectAsState()
 
     Column(
         modifier = Modifier
@@ -45,7 +49,7 @@ fun CountryInfoList(countries: List<Country>, onRefreshPress: () -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Taps: ${tapCounter.value}", modifier = Modifier.padding(10.dp))
+            Text(text = "Taps: $tapCounter", modifier = Modifier.padding(10.dp))
 
             Button(onClick = {
                 onRefreshPress()
@@ -53,11 +57,12 @@ fun CountryInfoList(countries: List<Country>, onRefreshPress: () -> Unit) {
                 Text(text = "Refresh")
             }
 
-            Text(text = "Back: ${backCounter.value}", modifier = Modifier.padding(10.dp))
+            Text(text = "Back: $backCounter", modifier = Modifier.padding(10.dp))
         }
 
             selectedCountry?.let {
                 CountryDetailsScreen(it, onBackPress = {
+                    onBackTap()
                     selectedCountry = null
                 })
             } ?: run {
@@ -65,7 +70,7 @@ fun CountryInfoList(countries: List<Country>, onRefreshPress: () -> Unit) {
                     items(countries) {
                         CountryInfoRow(it) {
                             selectedCountry = it
-                            Flows.tap()
+                            onCountryTap()
                         }
                     }
                 }
@@ -76,5 +81,5 @@ fun CountryInfoList(countries: List<Country>, onRefreshPress: () -> Unit) {
     @Preview
     @Composable
     fun CountryInfoListPreview() {
-        CountryInfoList(sampleListCountries, onRefreshPress = {})
+//        CountryInfoList(sampleListCountries, onRefreshPress = {})
     }

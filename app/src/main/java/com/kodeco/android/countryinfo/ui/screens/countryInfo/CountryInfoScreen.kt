@@ -3,6 +3,7 @@ package com.kodeco.android.countryinfo.ui.screens.countryInfo
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,51 +30,31 @@ sealed class CountryInfoState {
 }
 
 @Composable
-fun CountryInfoScreen(service: CountryAPIService) {
+fun CountryInfoScreen(viewModel: CountryInfoViewModel) {
 
-    var infoState: CountryInfoState by remember { mutableStateOf(CountryInfoState.Loading) }
+    var infoState = viewModel.uiState.collectAsState()
+
     Surface {
-        when (val currentState = infoState) {
+        when (val currentState = infoState.value) {
             is CountryInfoState.Loading -> Loading()
             is CountryInfoState.Success -> CountryInfoList(
                 currentState.countries,
                 onRefreshPress = {
-                    infoState = CountryInfoState.Loading
+                    viewModel.fetchCountries()
                     Flows.refresh()
                 })
 
             is CountryInfoState.Error -> CountryErrorScreen(
                 currentState.error,
                 onTryAgain = {
-                    infoState = CountryInfoState.Loading
+                    viewModel.fetchCountries()
                 })
         }
     }
 
-    if (infoState == CountryInfoState.Loading) {
-        LaunchedEffect(Unit) {
-            getCountryInfoFlow(service)
-                .catch {
-                    infoState = CountryInfoState.Error(it)
-                }
-                .collect {
-                    infoState = it
-                }
-        }
+    if (infoState.value == CountryInfoState.Loading) {
+        viewModel.fetchCountries()
     }
-}
-
-private fun getCountryInfoFlow(service: CountryAPIService): Flow<CountryInfoState> = flow {
-    delay(3000)
-    val countriesResponse = service.getAllCountries()
-
-    val newState = if (countriesResponse.isSuccessful) {
-        CountryInfoState.Success(countriesResponse.body()!!)
-    } else {
-        CountryInfoState.Error(Throwable("Request failed: ${countriesResponse.message()}"))
-    }
-
-    emit(newState)
 }
 
 val sampleListCountries = listOf(
@@ -96,8 +77,8 @@ val sampleListCountries = listOf(
 @Preview
 @Composable
 fun CountryInfoScreenPreview() {
-    CountryInfoScreen(object : CountryAPIService {
-        override suspend fun getAllCountries(): Response<List<Country>> =
-            Response.success(sampleListCountries)
-    })
+//    CountryInfoScreen(object : CountryAPIService {
+//        override suspend fun getAllCountries(): Response<List<Country>> =
+//            Response.success(sampleListCountries)
+//    })
 }

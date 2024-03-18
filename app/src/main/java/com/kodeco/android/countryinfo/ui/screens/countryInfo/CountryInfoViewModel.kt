@@ -11,9 +11,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class CountryInfoViewModel(private val repository: CountryRepository): ViewModel() {
+class CountryInfoViewModel(private val repository: CountryRepository) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<CountryInfoState> = MutableStateFlow(CountryInfoState.Loading)
+    private val _uiState: MutableStateFlow<CountryInfoState> =
+        MutableStateFlow(CountryInfoState.Loading)
     val uiState: StateFlow<CountryInfoState> = _uiState.asStateFlow()
 
     init {
@@ -33,7 +34,8 @@ class CountryInfoViewModel(private val repository: CountryRepository): ViewModel
         }
     }
 
-    class CountryInfoViewModelFactory(private val repository: CountryRepository): ViewModelProvider.NewInstanceFactory() {
+    class CountryInfoViewModelFactory(private val repository: CountryRepository) :
+        ViewModelProvider.NewInstanceFactory() {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T =
             CountryInfoViewModel(repository) as T

@@ -51,10 +51,6 @@ fun CountryInfoScreen(viewModel: CountryInfoViewModel) {
                 })
         }
     }
-
-    if (infoState.value == CountryInfoState.Loading) {
-        viewModel.fetchCountries()
-    }
 }
 
 val sampleListCountries = listOf(

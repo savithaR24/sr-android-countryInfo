@@ -7,7 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class CountryRepositoryImpl(private val service: CountryAPIService): CountryRepository {
+class CountryRepositoryImpl(private val service: CountryAPIService) : CountryRepository {
     private var countries = mutableListOf<Country>()
     override fun fetchCountries(): Flow<List<Country>> = flow {
         delay(3000)

@@ -2,7 +2,6 @@ package com.kodeco.android.countryinfo.repositories
 
 import com.kodeco.android.countryinfo.api.CountryAPIService
 import com.kodeco.android.countryinfo.models.Country
-import com.kodeco.android.countryinfo.models.CountryName
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -25,7 +24,7 @@ class CountryRepositoryImpl(private val service: CountryAPIService) : CountryRep
         emit(countries)
     }
 
-    override fun getCountry(index: Int): Country? {
+    override fun getCountry(index: Int): Country {
         return countries.elementAt(index)
     }
 }

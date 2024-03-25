@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 object Counter {
     private val _counterFlow: MutableStateFlow<Int> = MutableStateFlow(0)
     val counterFlow: StateFlow<Int> = _counterFlow
+
     init {
         GlobalScope.launch {
             while (true) {

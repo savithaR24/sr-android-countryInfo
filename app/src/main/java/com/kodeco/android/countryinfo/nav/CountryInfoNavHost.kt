@@ -2,7 +2,6 @@ package com.kodeco.android.countryinfo.nav
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -64,7 +63,7 @@ fun CountryInfoNavHost(repository: CountryRepository) {
         composable(
             NavigationItem.About.route
         ) {
-            AboutScreen (
+            AboutScreen(
                 onBackPress = {
                     navController.navigate(NavigationItem.List.route)
                 }

@@ -16,7 +16,10 @@ import com.kodeco.android.countryinfo.models.CountryFlags
 import com.kodeco.android.countryinfo.models.CountryName
 
 @Composable
-fun CountryInfoRow(country: Country, onClick: () -> Unit) {
+fun CountryInfoRow(
+    country: Country,
+    onClick: () -> Unit,
+) {
     Card(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp

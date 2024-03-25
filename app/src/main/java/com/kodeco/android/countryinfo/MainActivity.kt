@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import com.kodeco.android.countryinfo.api.CountryAPIService
+import com.kodeco.android.countryinfo.nav.CountryInfoNavHost
 import com.kodeco.android.countryinfo.repositories.CountryRepositoryImpl
 import com.kodeco.android.countryinfo.ui.screens.countryInfo.CountryInfoScreen
 import com.kodeco.android.countryinfo.ui.screens.countryInfo.CountryInfoViewModel
@@ -33,13 +35,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MyApplicationTheme {
-                CountryInfoScreen(
-                    viewModel = viewModel(
-                        factory = CountryInfoViewModel.CountryInfoViewModelFactory(
-                            repository = CountryRepositoryImpl(apiService)
-                        )
-                    )
-                )
+                CountryInfoNavHost(repository = CountryRepositoryImpl(apiService))
             }
         }
     }

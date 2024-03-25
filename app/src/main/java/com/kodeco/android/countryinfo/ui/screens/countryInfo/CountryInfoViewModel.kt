@@ -17,20 +17,7 @@ class CountryInfoViewModel(private val repository: CountryRepository) : ViewMode
         MutableStateFlow(CountryInfoState.Loading)
     val uiState: StateFlow<CountryInfoState> = _uiState.asStateFlow()
 
-    private val _countryTapCounter: MutableStateFlow<Int> = MutableStateFlow(0)
-    val countryTapCounter: StateFlow<Int> = _countryTapCounter.asStateFlow()
-
-    private val _backTapCounter: MutableStateFlow<Int> = MutableStateFlow(0)
-    val backTapCounter: StateFlow<Int> = _backTapCounter.asStateFlow()
-
-    private val _appUptimeCounter: MutableStateFlow<Int> = MutableStateFlow(0)
-    val appUptimeCounter: StateFlow<Int> = _appUptimeCounter.asStateFlow()
-
-    private val _refreshCounter: MutableStateFlow<Int> = MutableStateFlow(0)
-    val refreshCounter: StateFlow<Int> = _refreshCounter.asStateFlow()
-
     init {
-        incrementCounter()
         fetchCountries()
     }
 
@@ -39,31 +26,6 @@ class CountryInfoViewModel(private val repository: CountryRepository) : ViewMode
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T =
             CountryInfoViewModel(repository) as T
-    }
-
-    private fun incrementCounter() {
-        viewModelScope.launch {
-            while (true) {
-                delay(1000)
-                increment()
-            }
-        }
-    }
-
-    private fun increment() {
-        _appUptimeCounter.value += 1
-    }
-
-    fun tap() {
-        _countryTapCounter.value += 1
-    }
-
-    fun tapBack() {
-        _backTapCounter.value += 1
-    }
-
-    fun refresh() {
-        _refreshCounter.value += 1
     }
 
     fun fetchCountries() {

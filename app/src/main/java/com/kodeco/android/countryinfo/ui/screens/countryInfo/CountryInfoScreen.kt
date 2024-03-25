@@ -1,15 +1,31 @@
 package com.kodeco.android.countryinfo.ui.screens.countryInfo
 
+import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.IconButton
 import androidx.compose.material.Surface
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Help
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.kodeco.android.countryinfo.R
 import com.kodeco.android.countryinfo.models.Country
 import com.kodeco.android.countryinfo.models.CountryFlags
 import com.kodeco.android.countryinfo.models.CountryName
+import com.kodeco.android.countryinfo.ui.components.CountryDetail
 import com.kodeco.android.countryinfo.ui.components.CountryErrorScreen
 import com.kodeco.android.countryinfo.ui.components.CountryInfoList
 import com.kodeco.android.countryinfo.ui.components.Loading
+import com.kodeco.android.countryinfo.ui.components.LoadingDetail
+import com.kodeco.android.countryinfo.ui.screens.countryDetails.CountryDetailsState
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 sealed class CountryInfoState {
@@ -18,38 +34,49 @@ sealed class CountryInfoState {
     data class Error(val error: Throwable) : CountryInfoState()
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(DelicateCoroutinesApi::class)
 @Composable
-fun CountryInfoScreen(viewModel: CountryInfoViewModel) {
+fun CountryInfoScreen(
+    viewModel: CountryInfoViewModel,
+    onCountryRowTap: (Int) -> Unit,
+    onAboutTap: () -> Unit,
+) {
 
     var infoState = viewModel.uiState.collectAsState()
-    val tapCounter = viewModel.countryTapCounter.collectAsState()
-    val backCounter = viewModel.backTapCounter.collectAsState()
-    val appUptimeCounter = viewModel.appUptimeCounter.collectAsState()
-    val refreshCounter = viewModel.refreshCounter.collectAsState()
+//    val appUptimeCounter = viewModel.appUptimeCounter.collectAsState()
 
-    Surface {
-        when (val currentState = infoState.value) {
-            is CountryInfoState.Loading -> Loading(
-                appUptimeCounter = appUptimeCounter.value,
-                refreshCounter = refreshCounter.value,
-                combinedCounterValue = tapCounter.value + backCounter.value + refreshCounter.value
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = "Country Info")
+                },
+                actions = {
+                    IconButton(
+                        onClick = onAboutTap,
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Help,
+                            contentDescription = "About",
+                        )
+                    }
+                }
             )
+        }
+    ) { padding ->
+        when (val currentState = infoState.value) {
+            is CountryInfoState.Loading -> Loading()
 
             is CountryInfoState.Success -> CountryInfoList(
+                modifier = Modifier.padding(padding),
                 currentState.countries,
                 onRefreshPress = {
                     viewModel.fetchCountries()
-                    viewModel.refresh()
                 },
                 onCountryTap = {
-                    viewModel.tap()
+                    onCountryRowTap(it)
                 },
-                onBackTap = {
-                    viewModel.tapBack()
-                },
-                tapCounter = tapCounter.value,
-                backCounter = backCounter.value,
             )
 
             is CountryInfoState.Error -> CountryErrorScreen(
@@ -59,6 +86,35 @@ fun CountryInfoScreen(viewModel: CountryInfoViewModel) {
                 })
         }
     }
+
+    /*
+    Surface {
+        when (val currentState = infoState.value) {
+            is CountryInfoState.Loading -> Loading(
+                appUptimeCounter = appUptimeCounter.value,
+            )
+
+            is CountryInfoState.Success -> CountryInfoList(
+                currentState.countries,
+                onRefreshPress = {
+                    viewModel.fetchCountries()
+                },
+                onCountryTap = {
+                    onCountryRowTap(it)
+                },
+                onBackTap = {
+                },
+            )
+
+            is CountryInfoState.Error -> CountryErrorScreen(
+                currentState.error,
+                onTryAgain = {
+                    viewModel.fetchCountries()
+                })
+        }
+    }
+    */
+
 }
 
 val sampleListCountries = listOf(

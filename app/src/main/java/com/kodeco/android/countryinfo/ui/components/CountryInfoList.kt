@@ -26,49 +26,38 @@ import com.kodeco.android.countryinfo.ui.screens.countryDetails.CountryDetailsSc
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CountryInfoList(
+    modifier: Modifier,
     countries: List<Country>,
     onRefreshPress: () -> Unit,
-    onCountryTap: () -> Unit,
-    onBackTap: () -> Unit,
-    tapCounter: Int,
-    backCounter: Int,
+    onCountryTap: (Int) -> Unit,
 ) {
+
     var selectedCountry: Country? by remember { mutableStateOf(null) }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Taps: $tapCounter", modifier = Modifier.padding(10.dp))
-
             Button(onClick = {
                 onRefreshPress()
             }) {
                 Text(text = "Refresh")
             }
-
-            Text(text = "Back: $backCounter", modifier = Modifier.padding(10.dp))
         }
 
-        selectedCountry?.let {
-            CountryDetailsScreen(it, onBackPress = {
-                onBackTap()
-                selectedCountry = null
-            })
-        } ?: run {
-            LazyColumn {
-                items(countries) {
-                    CountryInfoRow(it) {
-                        selectedCountry = it
-                        onCountryTap()
-                    }
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth(),
+        ) {
+            items(countries) {
+                CountryInfoRow(it) {
+                    selectedCountry = it
+                    onCountryTap(countries.indexOf(it))
                 }
             }
         }

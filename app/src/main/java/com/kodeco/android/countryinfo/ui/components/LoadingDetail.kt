@@ -9,19 +9,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.kodeco.android.countryinfo.other.Counter
-import kotlinx.coroutines.DelicateCoroutinesApi
 
-@OptIn(DelicateCoroutinesApi::class)
 @Composable
-fun Loading() {
-    val appUptimeCounter = Counter.counterFlow.collectAsState()
-
+fun LoadingDetail() {
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -33,7 +27,7 @@ fun Loading() {
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Loading .. App Uptime: ${appUptimeCounter.value}", Modifier.padding(10.dp))
+            Text(text = "Loading ..", Modifier.padding(10.dp))
             CircularProgressIndicator()
         }
     }
@@ -41,6 +35,6 @@ fun Loading() {
 
 @Preview
 @Composable
-fun LoadingPreview() {
-//    Loading()
+fun LoadingDetailPreview() {
+//    LoadingDetail()
 }

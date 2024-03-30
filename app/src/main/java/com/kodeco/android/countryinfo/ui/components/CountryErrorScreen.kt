@@ -18,7 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CountryErrorScreen(error: Throwable, onTryAgain: () -> Unit) {
+fun CountryErrorScreen(
+    error: Throwable,
+    onTryAgain: () -> Unit,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()

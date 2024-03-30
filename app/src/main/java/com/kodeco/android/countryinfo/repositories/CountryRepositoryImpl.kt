@@ -24,7 +24,7 @@ class CountryRepositoryImpl(private val service: CountryAPIService) : CountryRep
         emit(countries)
     }
 
-    override fun getCountry(index: Int): Country? {
-        TODO("Not yet implemented")
+    override fun getCountry(index: Int): Country {
+        return countries.elementAt(index)
     }
 }

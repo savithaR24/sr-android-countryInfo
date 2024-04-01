@@ -59,6 +59,7 @@ val sampleCountry = Country(
     population = 336102425,
     area = 9833520.0,
     flags = CountryFlags(png = "https://flagcdn.com/w320/us.png"),
+    isFavorite = false,
 )
 
 @Preview

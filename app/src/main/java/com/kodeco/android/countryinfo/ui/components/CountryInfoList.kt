@@ -1,6 +1,5 @@
 package com.kodeco.android.countryinfo.ui.components
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.kodeco.android.countryinfo.models.Country
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CountryInfoList(
     modifier: Modifier,

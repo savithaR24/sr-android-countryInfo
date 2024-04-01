@@ -19,7 +19,6 @@ import com.kodeco.android.countryinfo.models.CountryName
 import com.kodeco.android.countryinfo.ui.components.CountryErrorScreen
 import com.kodeco.android.countryinfo.ui.components.CountryInfoList
 import com.kodeco.android.countryinfo.ui.components.Loading
-import kotlinx.coroutines.DelicateCoroutinesApi
 
 sealed class CountryInfoState {
     data object Loading : CountryInfoState()
@@ -28,7 +27,6 @@ sealed class CountryInfoState {
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun CountryInfoScreen(
     viewModel: CountryInfoViewModel,
@@ -90,6 +88,7 @@ val sampleListCountries = listOf(
         population = 336102425,
         area = 9833520.0,
         flags = CountryFlags(png = "https://flagcdn.com/w320/us.png"),
+        isFavorite = false,
     ),
     Country(
         name = CountryName(common = "United States"),
@@ -97,6 +96,7 @@ val sampleListCountries = listOf(
         population = 336102425,
         area = 9833520.0,
         flags = CountryFlags(png = "https://flagcdn.com/w320/us.png"),
+        isFavorite = false,
     ),
 )
 

@@ -15,7 +15,6 @@ import com.kodeco.android.countryinfo.models.Country
 import com.kodeco.android.countryinfo.ui.components.CountryDetail
 import com.kodeco.android.countryinfo.ui.components.CountryErrorScreen
 import com.kodeco.android.countryinfo.ui.components.Loading
-import kotlinx.coroutines.DelicateCoroutinesApi
 
 sealed class CountryDetailsState {
     data object Loading : CountryDetailsState()
@@ -24,7 +23,6 @@ sealed class CountryDetailsState {
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun CountryDetailsScreen(
     viewModel: CountryDetailsViewModel,

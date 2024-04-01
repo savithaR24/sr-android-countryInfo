@@ -35,10 +35,14 @@ class CountryDetailsViewModel(
         viewModelScope.launch {
             _uiState.value = CountryDetailsState.Loading
 
-            _uiState.value = repository.getCountry(countryId)?.let {
-                CountryDetailsState.Success(it)
-            } ?: CountryDetailsState.Error(Exception("Country does not exist"))
+            if (countryId == null) {
+                _uiState.value = CountryDetailsState.Error(Exception("Country index is missing"))
+                return@launch
+            }
+
+            _uiState.value = repository.getCountry(countryId)?.let { country ->
+                CountryDetailsState.Success(country)
+            } ?: CountryDetailsState.Error(Exception("Country not found"))
         }
     }
-
 }

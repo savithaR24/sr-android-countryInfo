@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ fun CountryInfoList(
     countries: List<Country>,
     onRefreshPress: () -> Unit,
     onCountryTap: (Int) -> Unit,
+    onCountryFavorite: (Country) -> Unit,
 ) {
 
     var selectedCountry: Country? by remember { mutableStateOf(null) }
@@ -50,11 +52,16 @@ fun CountryInfoList(
             modifier = Modifier
                 .fillMaxWidth(),
         ) {
-            items(countries) {
-                CountryInfoRow(it) {
-                    selectedCountry = it
-                    onCountryTap(countries.indexOf(it))
-                }
+            itemsIndexed(countries) {index, country ->
+                CountryInfoRow(
+                    country = country,
+                    onClick = {
+                        onCountryTap(index)
+                    },
+                    onFavorite = {
+                        onCountryFavorite(country)
+                    }
+                )
             }
         }
     }

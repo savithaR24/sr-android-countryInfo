@@ -9,6 +9,7 @@ data class Country(
     val population: Long,
     val area: Double,
     val flags: CountryFlags,
+    val isFavorite: Boolean = false,
 ) {
     val commonName = name.common
     val flagUrl = flags.png

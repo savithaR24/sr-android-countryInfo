@@ -37,7 +37,6 @@ fun CountryInfoScreen(
 ) {
 
     var infoState = viewModel.uiState.collectAsState()
-//    val appUptimeCounter = viewModel.appUptimeCounter.collectAsState()
 
     Scaffold(
         topBar = {
@@ -70,6 +69,9 @@ fun CountryInfoScreen(
                 onCountryTap = {
                     onCountryRowTap(it)
                 },
+                onCountryFavorite = {
+                    viewModel.favorite(it)
+                }
             )
 
             is CountryInfoState.Error -> CountryErrorScreen(
@@ -79,35 +81,6 @@ fun CountryInfoScreen(
                 })
         }
     }
-
-    /*
-    Surface {
-        when (val currentState = infoState.value) {
-            is CountryInfoState.Loading -> Loading(
-                appUptimeCounter = appUptimeCounter.value,
-            )
-
-            is CountryInfoState.Success -> CountryInfoList(
-                currentState.countries,
-                onRefreshPress = {
-                    viewModel.fetchCountries()
-                },
-                onCountryTap = {
-                    onCountryRowTap(it)
-                },
-                onBackTap = {
-                },
-            )
-
-            is CountryInfoState.Error -> CountryErrorScreen(
-                currentState.error,
-                onTryAgain = {
-                    viewModel.fetchCountries()
-                })
-        }
-    }
-    */
-
 }
 
 val sampleListCountries = listOf(

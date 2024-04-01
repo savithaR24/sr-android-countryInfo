@@ -24,7 +24,7 @@ class CountryDetailsViewModel(
 
     class CountryDetailsViewModelFactory(
         private val countryId: Int,
-        private val repository: CountryRepository
+        private val repository: CountryRepository,
     ) : ViewModelProvider.NewInstanceFactory() {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T =

@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class CountryInfoViewModel(
-    private val repository: CountryRepository
+    private val repository: CountryRepository,
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<CountryInfoState> =

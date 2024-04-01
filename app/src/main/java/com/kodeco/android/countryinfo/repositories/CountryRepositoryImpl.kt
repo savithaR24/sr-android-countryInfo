@@ -2,15 +2,12 @@ package com.kodeco.android.countryinfo.repositories
 
 import com.kodeco.android.countryinfo.api.CountryAPIService
 import com.kodeco.android.countryinfo.models.Country
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flow
 
 class CountryRepositoryImpl(
-    private val service: CountryAPIService
+    private val service: CountryAPIService,
 ) : CountryRepository {
     private var favorites = setOf<String>()
 
@@ -35,7 +32,7 @@ class CountryRepositoryImpl(
         }
     }
 
-    override fun getCountry(index: Int) : Country? =
+    override fun getCountry(index: Int): Country? =
         _countries.value.getOrNull(index)
 
     override fun favorite(country: Country) {
@@ -46,7 +43,8 @@ class CountryRepositoryImpl(
         }
         val index = _countries.value.indexOf(country)
         val mutableCountries = _countries.value.toMutableList()
-        mutableCountries[index] = mutableCountries[index].copy(isFavorite = favorites.contains(country.commonName))
+        mutableCountries[index] =
+            mutableCountries[index].copy(isFavorite = favorites.contains(country.commonName))
         _countries.value = mutableCountries.toList()
     }
 }

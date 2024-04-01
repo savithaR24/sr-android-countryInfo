@@ -15,10 +15,8 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.kodeco.android.countryinfo.R
 import com.kodeco.android.countryinfo.models.Country
@@ -28,7 +26,7 @@ import com.kodeco.android.countryinfo.ui.theme.DarkBlue
 @Composable
 fun CountryFavoriteStar(
     country: Country,
-    onTap: () -> Unit
+    onTap: () -> Unit,
 ) {
     val favoriteTransition = updateTransition(
         targetState = country.isFavorite,

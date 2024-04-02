@@ -24,9 +24,11 @@ import coil.request.ImageRequest
 import com.kodeco.android.countryinfo.models.Country
 
 @Composable
-fun CountryDetail(country: Country) {
+fun CountryDetail(
+    modifier: Modifier,
+    country: Country) {
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,

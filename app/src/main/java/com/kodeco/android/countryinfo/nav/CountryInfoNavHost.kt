@@ -1,6 +1,7 @@
 package com.kodeco.android.countryinfo.nav
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -15,7 +16,7 @@ import com.kodeco.android.countryinfo.ui.screens.countryInfo.CountryInfoScreen
 import com.kodeco.android.countryinfo.ui.screens.countryInfo.CountryInfoViewModel
 
 @Composable
-fun CountryInfoNavHost(repository: CountryRepository) {
+fun CountryInfoNavHost() {
     val navController = rememberNavController()
 
     NavHost(
@@ -26,11 +27,7 @@ fun CountryInfoNavHost(repository: CountryRepository) {
             NavigationItem.List.route
         ) {
             CountryInfoScreen(
-                viewModel = viewModel(
-                    factory = CountryInfoViewModel.CountryInfoViewModelFactory(
-                        repository = repository,
-                    ),
-                ),
+                viewModel = hiltViewModel(),
                 onCountryRowTap = {
                     navController.navigate("${NavigationItem.Details.route}/$it")
                 },
@@ -47,12 +44,8 @@ fun CountryInfoNavHost(repository: CountryRepository) {
             val id = navBackStackEntry.arguments?.getInt("countryId")
             id?.let {
                 CountryDetailsScreen(
-                    viewModel = viewModel(
-                        factory = CountryDetailsViewModel.CountryDetailsViewModelFactory(
-                            countryId = id,
-                            repository = repository,
-                        ),
-                    ),
+                    countryId = id,
+                    viewModel = hiltViewModel(),
                     onBackPress = {
                         navController.navigate(NavigationItem.List.route)
                     }

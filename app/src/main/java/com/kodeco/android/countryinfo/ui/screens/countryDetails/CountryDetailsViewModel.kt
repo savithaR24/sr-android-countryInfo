@@ -1,7 +1,6 @@
 package com.kodeco.android.countryinfo.ui.screens.countryDetails
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.kodeco.android.countryinfo.repositories.CountryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +19,7 @@ class CountryDetailsViewModel @Inject constructor(
         MutableStateFlow(CountryDetailsState.Loading)
     val uiState: StateFlow<CountryDetailsState> = _uiState.asStateFlow()
 
-    fun getCountry(countryId: Int,) {
+    fun getCountry(countryId: Int) {
         viewModelScope.launch {
             _uiState.value = CountryDetailsState.Loading
 

@@ -14,6 +14,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 private const val BASE_URL = "https://restcountries.com/v3.1/"
+
 @Module
 @InstallIn(SingletonComponent::class)
 class CountryInfoSingletonModule {
@@ -36,6 +37,6 @@ class CountryInfoSingletonModule {
     @Provides
     @Singleton
     fun providesCountryRepository(
-        service: CountryAPIService
+        service: CountryAPIService,
     ): CountryRepository = CountryRepositoryImpl(service)
 }

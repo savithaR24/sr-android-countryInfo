@@ -37,10 +37,10 @@ fun CountryFavoriteStar(
             if (!country.isFavorite) tween(0) else {
                 keyframes {
                     durationMillis = 1000
-                    1.0f at 0 with FastOutSlowInEasing
-                    0.75f at 400 with FastOutSlowInEasing
-                    1.5f at 700 with FastOutSlowInEasing
-                    1.0f at 1000 with FastOutSlowInEasing
+                    1.0f at 0 using FastOutSlowInEasing
+                    0.75f at 400 using FastOutSlowInEasing
+                    1.5f at 700 using FastOutSlowInEasing
+                    1.0f at 1000 using FastOutSlowInEasing
                 }
             }
         },
@@ -67,8 +67,8 @@ fun CountryFavoriteStar(
             if (!country.isFavorite) tween(0) else {
                 keyframes {
                     durationMillis = 1000
-                    CoolBlue at 700 with FastOutSlowInEasing
-                    DarkBlue at 1000 with FastOutSlowInEasing
+                    CoolBlue at 700 using FastOutSlowInEasing
+                    DarkBlue at 1000 using FastOutSlowInEasing
                 }
             }
         },

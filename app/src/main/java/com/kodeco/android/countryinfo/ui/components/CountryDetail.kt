@@ -26,7 +26,8 @@ import com.kodeco.android.countryinfo.models.Country
 @Composable
 fun CountryDetail(
     modifier: Modifier,
-    country: Country) {
+    country: Country,
+) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()

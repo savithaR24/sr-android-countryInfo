@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Help
+import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -20,7 +20,6 @@ import com.kodeco.android.countryinfo.models.CountryName
 import com.kodeco.android.countryinfo.ui.components.CountryErrorScreen
 import com.kodeco.android.countryinfo.ui.components.CountryInfoList
 import com.kodeco.android.countryinfo.ui.components.Loading
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 sealed class CountryInfoState {
     data object Loading : CountryInfoState()
@@ -36,7 +35,7 @@ fun CountryInfoScreen(
     onAboutTap: () -> Unit,
 ) {
 
-    var infoState = viewModel.uiState.collectAsState()
+    val infoState = viewModel.uiState.collectAsState()
 
     Scaffold(
         topBar = {
@@ -49,7 +48,7 @@ fun CountryInfoScreen(
                         onClick = onAboutTap,
                     ) {
                         Icon(
-                            imageVector = Icons.Filled.Help,
+                            imageVector = Icons.AutoMirrored.Filled.Help,
                             contentDescription = "About",
                         )
                     }

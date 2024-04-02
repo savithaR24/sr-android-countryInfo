@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -51,7 +51,7 @@ fun CountryDetailsScreen(
                         onBackPress()
                     }) {
                         Icon(
-                            imageVector = Icons.Filled.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
                     }
@@ -65,6 +65,7 @@ fun CountryDetailsScreen(
                 modifier = Modifier.padding(padding),
                 currentState.country,
             )
+
             is CountryDetailsState.Error -> CountryErrorScreen(
                 currentState.error,
                 onTryAgain = {

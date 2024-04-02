@@ -2,18 +2,14 @@ package com.kodeco.android.countryinfo.nav
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.kodeco.android.countryinfo.repositories.CountryRepository
 import com.kodeco.android.countryinfo.ui.screens.about.AboutScreen
 import com.kodeco.android.countryinfo.ui.screens.countryDetails.CountryDetailsScreen
-import com.kodeco.android.countryinfo.ui.screens.countryDetails.CountryDetailsViewModel
 import com.kodeco.android.countryinfo.ui.screens.countryInfo.CountryInfoScreen
-import com.kodeco.android.countryinfo.ui.screens.countryInfo.CountryInfoViewModel
 
 @Composable
 fun CountryInfoNavHost() {

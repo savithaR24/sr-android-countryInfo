@@ -1,21 +1,18 @@
 package com.kodeco.android.countryinfo.nav
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.kodeco.android.countryinfo.repositories.CountryRepository
 import com.kodeco.android.countryinfo.ui.screens.about.AboutScreen
 import com.kodeco.android.countryinfo.ui.screens.countryDetails.CountryDetailsScreen
-import com.kodeco.android.countryinfo.ui.screens.countryDetails.CountryDetailsViewModel
 import com.kodeco.android.countryinfo.ui.screens.countryInfo.CountryInfoScreen
-import com.kodeco.android.countryinfo.ui.screens.countryInfo.CountryInfoViewModel
 
 @Composable
-fun CountryInfoNavHost(repository: CountryRepository) {
+fun CountryInfoNavHost() {
     val navController = rememberNavController()
 
     NavHost(
@@ -26,11 +23,7 @@ fun CountryInfoNavHost(repository: CountryRepository) {
             NavigationItem.List.route
         ) {
             CountryInfoScreen(
-                viewModel = viewModel(
-                    factory = CountryInfoViewModel.CountryInfoViewModelFactory(
-                        repository = repository,
-                    ),
-                ),
+                viewModel = hiltViewModel(),
                 onCountryRowTap = {
                     navController.navigate("${NavigationItem.Details.route}/$it")
                 },
@@ -47,12 +40,8 @@ fun CountryInfoNavHost(repository: CountryRepository) {
             val id = navBackStackEntry.arguments?.getInt("countryId")
             id?.let {
                 CountryDetailsScreen(
-                    viewModel = viewModel(
-                        factory = CountryDetailsViewModel.CountryDetailsViewModelFactory(
-                            countryId = id,
-                            repository = repository,
-                        ),
-                    ),
+                    countryId = id,
+                    viewModel = hiltViewModel(),
                     onBackPress = {
                         navController.navigate(NavigationItem.List.route)
                     }

@@ -1,28 +1,33 @@
 [versions]
 agp = "8.3.1"
-kotlin = "1.8.10"
-core-ktx = "1.10.1"
+hiltAndroidCompiler = "2.51.1"
+hiltNavigationCompose = "1.2.0"
+kotlin = "1.9.0"
+core-ktx = "1.12.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
-lifecycle-runtime-ktx = "2.6.1"
-activity-compose = "1.7.2"
-compose-bom = "2023.08.00"
-compose-ui = "1.5.0"
-viewModelVersion = "2.6.1"
-androidx-activity = "1.7.2"
-kotlinx-coroutines = "1.7.1"
+lifecycle-runtime-ktx = "2.7.0"
+activity-compose = "1.8.2"
+compose-bom = "2024.03.00"
+compose-ui = "1.6.4"
+viewModelVersion = "2.7.0"
+androidx-activity = "1.8.2"
+kotlinx-coroutines = "1.7.3"
 androidx-appcompat = "1.6.1"
 compose-integration-constraintlayout = "1.0.1"
-material3 = "1.2.0-alpha06"
-fonts = "1.5.0"
+material3 = "1.2.1"
+fonts = "1.6.4"
 retrofit="2.9.0"
-moshi="1.14.0"
-coil="2.4.0"
-navigation="2.7.1"
+moshi="1.15.0"
+coil="2.5.0"
+navigation="2.7.7"
 espresso="3.5.1"
 
 [libraries]
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidCompiler" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
@@ -64,10 +69,10 @@ retrofit-moshi = {module="com.squareup.moshi:moshi-kotlin", version.ref="moshi" 
 retrofit-moshi-converter = {module="com.squareup.retrofit2:converter-moshi", version.ref="retrofit" }
 moshiCodeGen = {module="com.squareup.moshi:moshi-kotlin-codegen", version.ref="moshi" }
 
-
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroidCompiler" }
 
 [bundles]
 androidx-activity = ["androidx-activity", "androidx-activity-ktx", "compose-viewmodel"]

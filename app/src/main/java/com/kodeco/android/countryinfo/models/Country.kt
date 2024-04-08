@@ -1,17 +1,10 @@
 package com.kodeco.android.countryinfo.models
 
-import com.squareup.moshi.JsonClass
-
-@JsonClass(generateAdapter = true)
-data class Country(
-    val name: CountryName,
-    val capital: List<String>?,
+data class Country (
+    val commonName: String,
+    val mainCapital: String,
     val population: Long,
     val area: Double,
-    val flags: CountryFlags,
+    val flagUrl: String,
     val isFavorite: Boolean = false,
-) {
-    val commonName = name.common
-    val flagUrl = flags.png
-    val nonNullCapital = capital?.firstOrNull() ?: "N/A"
-}
+)

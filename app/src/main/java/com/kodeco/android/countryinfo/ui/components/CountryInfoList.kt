@@ -10,10 +10,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.kodeco.android.countryinfo.models.Country
@@ -26,8 +22,6 @@ fun CountryInfoList(
     onCountryTap: (Int) -> Unit,
     onCountryFavorite: (Country) -> Unit,
 ) {
-
-    var selectedCountry: Country? by remember { mutableStateOf(null) }
 
     Column(
         modifier = modifier

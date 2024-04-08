@@ -15,8 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kodeco.android.countryinfo.models.Country
-import com.kodeco.android.countryinfo.models.CountryFlags
-import com.kodeco.android.countryinfo.models.CountryName
 import com.kodeco.android.countryinfo.ui.components.CountryErrorScreen
 import com.kodeco.android.countryinfo.ui.components.CountryInfoList
 import com.kodeco.android.countryinfo.ui.components.Loading
@@ -84,19 +82,19 @@ fun CountryInfoScreen(
 
 val sampleListCountries = listOf(
     Country(
-        name = CountryName(common = "United States"),
-        capital = listOf("D.C"),
+        commonName = "United States",
+        mainCapital = "D.C",
         population = 336102425,
         area = 9833520.0,
-        flags = CountryFlags(png = "https://flagcdn.com/w320/us.png"),
+        flagUrl = "https://flagcdn.com/w320/us.png",
         isFavorite = false,
     ),
     Country(
-        name = CountryName(common = "United States"),
-        capital = listOf("D.C"),
+        commonName = "United States",
+        mainCapital = "D.C",
         population = 336102425,
         area = 9833520.0,
-        flags = CountryFlags(png = "https://flagcdn.com/w320/us.png"),
+        flagUrl = "https://flagcdn.com/w320/us.png",
         isFavorite = false,
     ),
 )

@@ -35,7 +35,7 @@ fun CountryDetail(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        item { Text(text = "Capital: ${country.nonNullCapital}") }
+        item { Text(text = "Capital: ${country.mainCapital}") }
         item { Text(text = "Population: ${country.population}") }
         item { Text(text = "Area: ${country.area}") }
         item {

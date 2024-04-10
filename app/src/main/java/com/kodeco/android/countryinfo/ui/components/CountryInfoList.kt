@@ -13,18 +13,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.kodeco.android.countryinfo.models.Country
+import com.kodeco.android.countryinfo.ui.screens.countryInfo.CountryInfoState
 
 @Composable
 fun CountryInfoList(
-    modifier: Modifier,
-    countries: List<Country>,
+    countryInfoState: CountryInfoState.Success,
     onRefreshPress: () -> Unit,
     onCountryTap: (Int) -> Unit,
     onCountryFavorite: (Country) -> Unit,
 ) {
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
     ) {
         Row(
@@ -43,15 +43,16 @@ fun CountryInfoList(
             modifier = Modifier
                 .fillMaxWidth(),
         ) {
-            itemsIndexed(countries) { index, country ->
+            itemsIndexed(countryInfoState.countries) { index, country ->
                 CountryInfoRow(
                     country = country,
+                    isFavoritesFeatureEnabled = countryInfoState.isFavoritesFeatureEnabled,
                     onClick = {
                         onCountryTap(index)
                     },
                     onFavorite = {
                         onCountryFavorite(country)
-                    }
+                    },
                 )
             }
         }

@@ -1,16 +1,21 @@
 package com.kodeco.android.countryinfo.ui.screens.countryInfo
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Help
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -21,7 +26,10 @@ import com.kodeco.android.countryinfo.ui.components.Loading
 
 sealed class CountryInfoState {
     data object Loading : CountryInfoState()
-    data class Success(val countries: List<Country>) : CountryInfoState()
+    data class Success(
+        val countries: List<Country>,
+        val isFavoritesFeatureEnabled: Boolean,
+    ) : CountryInfoState()
     data class Error(val error: Throwable) : CountryInfoState()
 }
 
@@ -31,9 +39,10 @@ fun CountryInfoScreen(
     viewModel: CountryInfoViewModel = hiltViewModel(),
     onCountryRowTap: (Int) -> Unit,
     onAboutTap: () -> Unit,
+    onSettingsTap: () -> Unit,
 ) {
 
-    val infoState = viewModel.uiState.collectAsState()
+    val infoState by viewModel.uiState.collectAsState()
 
     Scaffold(
         topBar = {
@@ -42,6 +51,15 @@ fun CountryInfoScreen(
                     Text(text = "Country Info")
                 },
                 actions = {
+                    IconButton(
+                        onClick = onSettingsTap,
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = "Settings",
+                        )
+                    }
+
                     IconButton(
                         onClick = onAboutTap,
                     ) {
@@ -54,28 +72,38 @@ fun CountryInfoScreen(
             )
         }
     ) { padding ->
-        when (val currentState = infoState.value) {
-            is CountryInfoState.Loading -> Loading()
+        val transition = updateTransition(
+            targetState = infoState,
+            label = "list_state_transition",
+        )
+        transition.Crossfade(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+            contentKey = { it.javaClass },
+        ) { state ->
+            when (state) {
+                is CountryInfoState.Loading -> Loading()
 
-            is CountryInfoState.Success -> CountryInfoList(
-                modifier = Modifier.padding(padding),
-                currentState.countries,
-                onRefreshPress = {
-                    viewModel.fetchCountries()
-                },
-                onCountryTap = {
-                    onCountryRowTap(it)
-                },
-                onCountryFavorite = {
-                    viewModel.favorite(it)
-                }
-            )
+                is CountryInfoState.Success -> CountryInfoList(
+                    state,
+                    onRefreshPress = {
+                        viewModel.fetchCountries()
+                    },
+                    onCountryTap = {
+                        onCountryRowTap(it)
+                    },
+                    onCountryFavorite = {
+                        viewModel.favorite(it)
+                    }
+                )
 
-            is CountryInfoState.Error -> CountryErrorScreen(
-                currentState.error,
-                onTryAgain = {
-                    viewModel.fetchCountries()
-                })
+                is CountryInfoState.Error -> CountryErrorScreen(
+                    state.error,
+                    onTryAgain = {
+                        viewModel.fetchCountries()
+                    })
+            }
         }
     }
 }

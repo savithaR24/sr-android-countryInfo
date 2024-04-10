@@ -19,6 +19,7 @@ import com.kodeco.android.countryinfo.models.Country
 @Composable
 fun CountryInfoRow(
     country: Country,
+    isFavoritesFeatureEnabled: Boolean,
     onClick: () -> Unit,
     onFavorite: () -> Unit,
 ) {
@@ -46,7 +47,9 @@ fun CountryInfoRow(
                 Text(text = "Name: ${country.commonName}")
                 Text(text = "Capital: ${country.mainCapital}")
             }
-            CountryFavoriteStar(country = country, onTap = onFavorite)
+            if (isFavoritesFeatureEnabled) {
+                CountryFavoriteStar(country = country, onTap = onFavorite)
+            }
         }
     }
 }

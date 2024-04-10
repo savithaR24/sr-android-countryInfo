@@ -67,6 +67,7 @@ fun CountryInfoNavHost() {
             NavigationItem.Settings.route
         ) {
             SettingsScreen(
+                viewModel = hiltViewModel(),
                 onBackPress = {
                     navController.navigate(NavigationItem.List.route)
                 }

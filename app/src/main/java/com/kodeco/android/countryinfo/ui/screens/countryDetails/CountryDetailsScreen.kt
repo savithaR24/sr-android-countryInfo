@@ -30,7 +30,7 @@ sealed class CountryDetailsState {
 @Composable
 fun CountryDetailsScreen(
     countryId: Int,
-    viewModel: CountryDetailsViewModel = hiltViewModel(),
+    viewModel: CountryDetailsViewModel,
     onBackPress: () -> Unit,
 ) {
 

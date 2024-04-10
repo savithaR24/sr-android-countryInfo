@@ -26,7 +26,7 @@ data class SettingsUIState(
 
 @Composable
 fun SettingsScreen(
-    viewModel: SettingsViewModel = hiltViewModel(),
+    viewModel: SettingsViewModel,
     onBackPress: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -78,6 +78,6 @@ fun SettingsScreen(
 @Composable
 fun SettingsScreenPreview() {
     MyApplicationTheme {
-        SettingsScreen { }
+//        SettingsScreen { }
     }
 }

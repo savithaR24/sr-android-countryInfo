@@ -37,7 +37,7 @@ sealed class CountryInfoState {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun CountryInfoScreen(
-    viewModel: CountryInfoViewModel = hiltViewModel(),
+    viewModel: CountryInfoViewModel,
     onCountryRowTap: (Int) -> Unit,
     onAboutTap: () -> Unit,
     onSettingsTap: () -> Unit,

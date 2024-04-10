@@ -27,18 +27,19 @@ class CountryRepositoryImpl(
     init {
         coroutineScope.launch {
             countryPrefs.getLocalStorageEnabled()
-                .collect{ localStorageEnabled ->
+                .collect { localStorageEnabled ->
                     isLocalStorageEnabled = localStorageEnabled
                 }
         }
 
         coroutineScope.launch {
             countryPrefs.getFavoritesFeatureEnabled()
-                .collect{ favoritesFeatureEnabled ->
+                .collect { favoritesFeatureEnabled ->
                     isFavoritesFeatureEnabled = favoritesFeatureEnabled
                 }
         }
     }
+
     override suspend fun fetchCountries() {
         val favorites = if (isFavoritesFeatureEnabled) {
             if (isLocalStorageEnabled) {
@@ -57,25 +58,25 @@ class CountryRepositoryImpl(
 
             _countries.value = emptyList()
             _countries.value = if (countriesResponse.isSuccessful) {
-                    val countries = countriesResponse.body()!!
-                        .toMutableList()
-                        .map { country ->
-                            country.copy(isFavorite = favorites.any{ it.commonName == country.commonName })
-                        }
-                    if (isLocalStorageEnabled) countryDao.addCountries(*countries.toTypedArray())
-                    countries
-                } else {
-                    throw Exception("Request failed: ${countriesResponse.errorBody()}")
-                }
-            } catch (e: Exception) {
-                if (isLocalStorageEnabled) {
-                    _countries.value = emptyList()
-                    _countries.value = countryDao.getAllCountries()
-                } else {
-                    throw Exception("Request failed: ${e.message}")
-                }
+                val countries = countriesResponse.body()!!
+                    .toMutableList()
+                    .map { country ->
+                        country.copy(isFavorite = favorites.any { it.commonName == country.commonName })
+                    }
+                if (isLocalStorageEnabled) countryDao.addCountries(*countries.toTypedArray())
+                countries
+            } else {
+                throw Exception("Request failed: ${countriesResponse.errorBody()}")
+            }
+        } catch (e: Exception) {
+            if (isLocalStorageEnabled) {
+                _countries.value = emptyList()
+                _countries.value = countryDao.getAllCountries()
+            } else {
+                throw Exception("Request failed: ${e.message}")
             }
         }
+    }
 
     override fun getCountry(index: Int): Country? =
         _countries.value.getOrNull(index)

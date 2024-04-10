@@ -29,7 +29,7 @@ fun CountryInfoNavHost() {
                     navController.navigate("${NavigationItem.Details.route}/$it")
                 },
                 onSettingsTap = {
-                     navController.navigate(NavigationItem.Settings.route)
+                    navController.navigate(NavigationItem.Settings.route)
                 },
                 onAboutTap = {
                     navController.navigate(NavigationItem.About.route)

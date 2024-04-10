@@ -3,7 +3,6 @@ package com.kodeco.android.countryinfo.ui.screens.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kodeco.android.countryinfo.prefs.CountryPrefs
-import com.kodeco.android.countryinfo.ui.screens.countryInfo.CountryInfoState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,8 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val prefs : CountryPrefs
-): ViewModel() {
+    private val prefs: CountryPrefs,
+) : ViewModel() {
 
     private val _uiState: MutableStateFlow<SettingsUIState> =
         MutableStateFlow(SettingsUIState())
@@ -23,14 +22,14 @@ class SettingsViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             prefs.getLocalStorageEnabled()
-                .collect{
+                .collect {
                     _uiState.value = _uiState.value.copy(localStorageEnabled = it)
                 }
         }
 
         viewModelScope.launch {
             prefs.getFavoritesFeatureEnabled()
-                .collect{
+                .collect {
                     _uiState.value = _uiState.value.copy(favoritesFeatureEnabled = it)
                 }
         }

@@ -6,7 +6,6 @@ import com.kodeco.android.countryinfo.models.Country
 import com.kodeco.android.countryinfo.prefs.CountryPrefs
 import com.kodeco.android.countryinfo.repositories.CountryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -35,7 +34,7 @@ class CountryInfoViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             prefs.getFavoritesFeatureEnabled()
-                .collect{
+                .collect {
                     isFavoritesFeatureEnabled = it
                 }
         }
@@ -50,7 +49,7 @@ class CountryInfoViewModel @Inject constructor(
                     _uiState.value = CountryInfoState.Success(
                         it,
                         isFavoritesFeatureEnabled = isFavoritesFeatureEnabled,
-                        )
+                    )
                 }
         }
         fetchCountries()

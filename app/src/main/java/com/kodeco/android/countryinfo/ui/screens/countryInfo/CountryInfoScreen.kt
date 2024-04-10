@@ -30,6 +30,7 @@ sealed class CountryInfoState {
         val countries: List<Country>,
         val isFavoritesFeatureEnabled: Boolean,
     ) : CountryInfoState()
+
     data class Error(val error: Throwable) : CountryInfoState()
 }
 

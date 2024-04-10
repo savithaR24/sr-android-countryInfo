@@ -9,7 +9,6 @@ import com.kodeco.android.countryinfo.prefs.CountryPrefsImpl
 import com.kodeco.android.countryinfo.repositories.CountryRepository
 import com.kodeco.android.countryinfo.repositories.CountryRepositoryImpl
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

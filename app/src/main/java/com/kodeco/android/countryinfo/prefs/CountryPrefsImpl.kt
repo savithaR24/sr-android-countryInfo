@@ -1,7 +1,6 @@
 package com.kodeco.android.countryinfo.prefs
 
 import android.content.Context
-import androidx.datastore.dataStoreFile
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences

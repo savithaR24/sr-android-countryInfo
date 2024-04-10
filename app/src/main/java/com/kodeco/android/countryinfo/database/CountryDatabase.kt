@@ -11,8 +11,8 @@ import com.kodeco.android.countryinfo.models.Country
     version = 1,
     exportSchema = false,
 )
-abstract class CountryDatabase() : RoomDatabase() {
-    abstract fun countryDao() : CountryDao
+abstract class CountryDatabase : RoomDatabase() {
+    abstract fun countryDao(): CountryDao
 
     companion object {
         fun buildDatabase(context: Context) = Room.databaseBuilder(

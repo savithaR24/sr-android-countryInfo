@@ -19,8 +19,8 @@ import com.kodeco.android.countryinfo.ui.screens.countryInfo.CountryInfoState
 fun CountryInfoList(
     countryInfoState: CountryInfoState.Success,
     onRefreshPress: () -> Unit,
-    onCountryTap: (Int) -> Unit,
-    onCountryFavorite: (Country) -> Unit,
+    onCountryTap: (index: Int) -> Unit,
+    onCountryFavorite: (country: Country) -> Unit,
 ) {
 
     Column(

@@ -14,7 +14,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.kodeco.android.countryinfo.models.Country
 import com.kodeco.android.countryinfo.ui.components.CountryDetail
 import com.kodeco.android.countryinfo.ui.components.CountryErrorScreen
@@ -30,7 +29,7 @@ sealed class CountryDetailsState {
 @Composable
 fun CountryDetailsScreen(
     countryId: Int,
-    viewModel: CountryDetailsViewModel = hiltViewModel(),
+    viewModel: CountryDetailsViewModel,
     onBackPress: () -> Unit,
 ) {
 

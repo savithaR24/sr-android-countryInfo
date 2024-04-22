@@ -7,5 +7,5 @@ interface CountryRepository {
     val countries: Flow<List<Country>>
     suspend fun fetchCountries()
     fun getCountry(index: Int): Country?
-    fun favorite(country: Country)
+    suspend fun favorite(country: Country)
 }

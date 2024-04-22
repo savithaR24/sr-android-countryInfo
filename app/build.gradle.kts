@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.hilt)
     id("com.google.devtools.ksp")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -55,7 +56,7 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.0"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
     packaging {
         resources {
@@ -83,6 +84,12 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     kapt(libs.hilt.android.compiler)
+
+    implementation(libs.room)
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+
+    implementation(libs.prefs)
 
     testImplementation(libs.junit)
 

@@ -36,6 +36,7 @@ class CountryInfoViewModel @Inject constructor(
             prefs.getFavoritesFeatureEnabled()
                 .collect {
                     isFavoritesFeatureEnabled = it
+                    fetchCountries()
                 }
         }
 
@@ -52,7 +53,7 @@ class CountryInfoViewModel @Inject constructor(
                     )
                 }
         }
-        fetchCountries()
+
     }
 
     fun fetchCountries() {

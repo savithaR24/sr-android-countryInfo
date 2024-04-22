@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class CountryRepositoryImpl(
@@ -25,6 +26,11 @@ class CountryRepositoryImpl(
     override val countries: StateFlow<List<Country>> = _countries.asStateFlow()
 
     init {
+        coroutineScope.launch {
+            isLocalStorageEnabled = countryPrefs.getLocalStorageEnabled().first()
+            isFavoritesFeatureEnabled = countryPrefs.getFavoritesFeatureEnabled().first()
+        }
+
         coroutineScope.launch {
             countryPrefs.getLocalStorageEnabled()
                 .collect { localStorageEnabled ->
